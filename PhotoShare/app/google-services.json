@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "686878616564",
+    "firebase_url": "https://photoshare-401ed.firebaseio.com",
+    "project_id": "photoshare-401ed",
+    "storage_bucket": "photoshare-401ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:686878616564:android:74d8d71089bea9277567a1",
+        "android_client_info": {
+          "package_name": "com.example.photoshare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "686878616564-15hqa4kf1bpgpb72pe1i4aj87rsgjjun.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-IW2gK5m9fvTDrn4R0-NCmmmVMFQRpXU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "686878616564-15hqa4kf1bpgpb72pe1i4aj87rsgjjun.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

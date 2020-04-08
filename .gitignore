@@ -1,0 +1,7 @@
+PhotoShare/.gitignore
+PhotoShare/.idea/
+PhotoShare/gradle.properties
+PhotoShare/gradle/
+PhotoShare/gradlew
+PhotoShare/gradlew.bat
+PhotoShare/settings.gradle
