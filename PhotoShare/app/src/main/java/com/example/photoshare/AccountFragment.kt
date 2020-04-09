@@ -43,9 +43,9 @@ class AccountFragment : Fragment() {
         newCollectionButton.setOnClickListener {
             startActivity(Intent(context, NewCollectionActivity::class.java))
         }
-        collectionTitle.setOnClickListener{
-            startActivity(Intent(context, ViewCollectionActivity::class.java))
-        }
+//        collectionTitle.setOnClickListener{
+//            startActivity(Intent(context, ViewCollectionActivity::class.java))
+//        }
     }
 
 
