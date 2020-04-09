@@ -24,8 +24,10 @@ class AccountCollectionViewHolder(inflater: LayoutInflater, parent: ViewGroup, p
     fun bind(collection: DocumentSnapshot, i: Int) {
         Title.text = collection["name"].toString()
         Title.setOnClickListener {
-            ctx.startActivity(Intent(ctx, ViewCollectionActivity::class.java))
-            Log.i("EEE", "clicked on collection " + collection["id"].toString())
+            val intent = Intent(ctx, ViewCollectionActivity::class.java)
+            intent.putExtra("privateCollectionId", collection["id"].toString())
+            intent.putExtra("privateCollectionName", collection["name"].toString())
+            ctx.startActivity(intent)
         }
     }
 

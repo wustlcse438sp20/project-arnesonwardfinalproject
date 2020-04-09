@@ -28,6 +28,7 @@ class AccountFragment : Fragment() {
 
     private val db = Firebase.firestore
     private val auth = FirebaseAuth.getInstance()
+    private lateinit var collectionadapter: AccountCollectionAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +41,7 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var collectionadapter = AccountCollectionAdapter(privateCollections, context!!)
+        collectionadapter = AccountCollectionAdapter(privateCollections, context!!)
         recyclerView.adapter = collectionadapter
         recyclerView.layoutManager = LinearLayoutManager(this.context)
 
@@ -51,6 +52,12 @@ class AccountFragment : Fragment() {
             startActivity(Intent(context, NewCollectionActivity::class.java))
         }
 
+//        loadPrivateCollections()
+
+    }
+
+    private fun loadPrivateCollections() {
+        privateCollections.clear()
         db.collection("privateCollections")
             .whereEqualTo("ownerId", auth.currentUser!!.uid)
             .get()
@@ -58,7 +65,11 @@ class AccountFragment : Fragment() {
                 privateCollections.addAll(it.documents)
                 collectionadapter.notifyDataSetChanged()
             }
+    }
 
+    override fun onResume() {
+        super.onResume()
+        loadPrivateCollections()
     }
 
 

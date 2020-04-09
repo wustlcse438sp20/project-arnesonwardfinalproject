@@ -1,5 +1,6 @@
 package com.example.photoshare
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -18,13 +19,13 @@ class CollectionViewViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
     }
 
 
-    fun bind(url: String, i: Int) {
+    fun bind(url: Uri, i: Int) {
         Picasso.get().load(url).into(image)
     }
 
 }
 
-class CollectionViewAdapter(private val list: ArrayList<String>)
+class CollectionViewAdapter(private val list: ArrayList<Uri>)
     : RecyclerView.Adapter<CollectionViewViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CollectionViewViewHolder {
@@ -33,7 +34,7 @@ class CollectionViewAdapter(private val list: ArrayList<String>)
     }
 
     override fun onBindViewHolder(holder: CollectionViewViewHolder, position: Int) {
-        val url: String = list[position]
+        val url = list[position]
         holder.bind(url, position)
     }
 

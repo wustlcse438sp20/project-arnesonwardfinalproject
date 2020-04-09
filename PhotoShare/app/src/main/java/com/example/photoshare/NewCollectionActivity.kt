@@ -27,7 +27,9 @@ class NewCollectionActivity : AppCompatActivity() {
                 "id" to UUID.randomUUID().toString(),
                 "ownerId" to auth.currentUser!!.uid,
                 "name" to collectionNameInput.text.toString()
-            ))
+            )).addOnSuccessListener {
+                finish()
+            }
         }
     }
 }
