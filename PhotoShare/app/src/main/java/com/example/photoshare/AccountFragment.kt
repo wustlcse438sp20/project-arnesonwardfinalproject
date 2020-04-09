@@ -8,6 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.collection_item.*
 import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.fragment_account.recyclerView
@@ -20,6 +24,10 @@ class AccountFragment : Fragment() {
         var collection1: Collection = Collection("E")
         var collection2: Collection = Collection("E2")
     }
+    private val privateCollections: ArrayList<DocumentSnapshot> = ArrayList()
+
+    private val db = Firebase.firestore
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,9 +39,8 @@ class AccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        AccountFragment.collectionList.add(AccountFragment.collection1)
-        AccountFragment.collectionList.add(AccountFragment.collection2)
-        var collectionadapter = AccountCollectionAdapter(AccountFragment.collectionList)
+
+        var collectionadapter = AccountCollectionAdapter(privateCollections, context!!)
         recyclerView.adapter = collectionadapter
         recyclerView.layoutManager = LinearLayoutManager(this.context)
 
@@ -43,9 +50,15 @@ class AccountFragment : Fragment() {
         newCollectionButton.setOnClickListener {
             startActivity(Intent(context, NewCollectionActivity::class.java))
         }
-//        collectionTitle.setOnClickListener{
-//            startActivity(Intent(context, ViewCollectionActivity::class.java))
-//        }
+
+        db.collection("privateCollections")
+            .whereEqualTo("ownerId", auth.currentUser!!.uid)
+            .get()
+            .addOnSuccessListener {
+                privateCollections.addAll(it.documents)
+                collectionadapter.notifyDataSetChanged()
+            }
+
     }
 
 
