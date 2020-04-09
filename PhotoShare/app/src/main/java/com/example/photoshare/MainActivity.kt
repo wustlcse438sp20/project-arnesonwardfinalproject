@@ -10,5 +10,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         startActivity(Intent(this, LoginActivity::class.java))
+        val newIntent = Intent(this@MainActivity, FeedActivity::class.java)
+        startActivity(newIntent)
     }
 }
