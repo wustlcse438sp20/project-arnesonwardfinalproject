@@ -5,6 +5,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 //import com.example.cse438.cse438_assignment2.R
 //import com.example.cse438.cse438_assignment2.Activities.TrackInfoActivity
 //import com.example.cse438.cse438_assignment2.data.Track
@@ -18,6 +21,8 @@ class ImageViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
     private val username: TextView
     private val caption: TextView
 
+    private val storage = Firebase.storage
+
     init {
         imgView = itemView.findViewById(R.id.imagePost)
         username = itemView.findViewById(R.id.username)
@@ -25,25 +30,23 @@ class ImageViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
     }
 
 
-    fun bind(imagePost: ImagePost, i: Int) {
-        // picasso here
-        Picasso.get().load("https://i.kym-cdn.com/entries/icons/original/000/033/233/cover8.jpg").into(imgView)
-        username.text = imagePost.email
-        caption.text = imagePost.caption
+    fun bind(imagePost: DocumentSnapshot, i: Int) {
+        val owner = (imagePost["owner"]) as Map<String, String>
 
-//        imgView.setOnClickListener {
-//            val intent = Intent(it.context, ViewPostActivity::class.java).apply {
-//                putExtra("postIndex", i)
-//            }
-//            it.context.startActivity(intent)
-//        }
+        val imageRef = storage.getReference(imagePost["imageName"].toString())
+        imageRef.downloadUrl.addOnSuccessListener {
+            Picasso.get().load(it).into(imgView)
+
+            username.text = owner["username"]
+            caption.text = imagePost["caption"].toString()
+        }
     }
 
 }
 
 
 //define the adapter for the recycler view
-class ImageAdapter(private val list: ArrayList<ImagePost>)
+class ImageAdapter(private val list: ArrayList<DocumentSnapshot>)
     : RecyclerView.Adapter<ImageViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
@@ -52,7 +55,7 @@ class ImageAdapter(private val list: ArrayList<ImagePost>)
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        val imagePost: ImagePost = list[position]
+        val imagePost = list[position]
         holder.bind(imagePost, position)
     }
 
