@@ -1,14 +1,13 @@
-package com.example.photoshare
+package com.example.photoshare.Adapters
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.photoshare.Activities.ViewCollectionActivity
+import com.example.photoshare.R
 import com.google.firebase.firestore.DocumentSnapshot
 
 

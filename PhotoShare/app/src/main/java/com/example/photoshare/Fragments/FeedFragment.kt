@@ -1,4 +1,4 @@
-package com.example.photoshare
+package com.example.photoshare.Fragments
 
 
 import android.os.Bundle
@@ -6,8 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.photoshare.Adapters.ImageAdapter
+import com.example.photoshare.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
@@ -16,12 +17,6 @@ import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.fragment_feed.*
 
 class FeedFragment : Fragment() {
-
-    companion object {
-        var imagePost1: ImagePost = ImagePost("https://i.kym-cdn.com/entries/icons/mobile/000/026/008/Screen_Shot_2018-04-25_at_12.24.22_PM.jpg", "email.email", "YOOOOOOOOO")
-        var imagePost2: ImagePost = ImagePost("https://i.kym-cdn.com/entries/icons/mobile/000/026/008/Screen_Shot_2018-04-25_at_12.24.22_PM.jpg", "SOOOO GOOOD", "SHOO BOUY")
-        var imageList: ArrayList<ImagePost> = ArrayList()
-    }
 
     val postList: ArrayList<DocumentSnapshot> = ArrayList()
 

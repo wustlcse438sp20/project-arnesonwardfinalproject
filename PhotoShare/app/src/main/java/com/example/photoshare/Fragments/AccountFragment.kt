@@ -1,4 +1,4 @@
-package com.example.photoshare
+package com.example.photoshare.Fragments
 
 
 import android.content.Intent
@@ -8,22 +8,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.photoshare.Adapters.AccountCollectionAdapter
+import com.example.photoshare.Activities.NewCollectionActivity
+import com.example.photoshare.Activities.NewPostActivity
+import com.example.photoshare.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.collection_item.*
 import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.fragment_account.recyclerView
 
 
 class AccountFragment : Fragment() {
 
-    companion object {
-        var collectionList: ArrayList<Collection> = ArrayList()
-        var collection1: Collection = Collection("E")
-        var collection2: Collection = Collection("E2")
-    }
     private val privateCollections: ArrayList<DocumentSnapshot> = ArrayList()
 
     private val db = Firebase.firestore
@@ -41,7 +39,8 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        collectionadapter = AccountCollectionAdapter(privateCollections, context!!)
+        collectionadapter =
+            AccountCollectionAdapter(privateCollections, context!!)
         recyclerView.adapter = collectionadapter
         recyclerView.layoutManager = LinearLayoutManager(this.context)
 

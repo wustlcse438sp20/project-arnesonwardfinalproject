@@ -1,8 +1,9 @@
-package com.example.photoshare
+package com.example.photoshare.Activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.photoshare.R
 
 class MainActivity : AppCompatActivity() {
 

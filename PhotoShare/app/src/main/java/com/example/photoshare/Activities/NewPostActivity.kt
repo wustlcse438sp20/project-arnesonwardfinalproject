@@ -1,4 +1,4 @@
-package com.example.photoshare
+package com.example.photoshare.Activities
 
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,7 @@ import android.content.Intent
 import android.net.Uri
 
 import android.util.Log
+import com.example.photoshare.R
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth

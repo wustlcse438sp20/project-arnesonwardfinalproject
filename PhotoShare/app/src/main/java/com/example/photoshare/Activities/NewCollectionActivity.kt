@@ -1,12 +1,12 @@
-package com.example.photoshare
+package com.example.photoshare.Activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.photoshare.R
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_new_collection.*
 import java.util.*
 
