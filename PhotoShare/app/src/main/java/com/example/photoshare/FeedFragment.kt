@@ -29,6 +29,8 @@ class FeedFragment : Fragment() {
     private val db = Firebase.firestore
     private val auth = FirebaseAuth.getInstance()
 
+    private val imageadapter = ImageAdapter(postList)
+
     // TODO: pull down to refresh
 
     override fun onCreateView(
@@ -43,16 +45,26 @@ class FeedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        var imageadapter = ImageAdapter(postList)
+
         recyclerView.adapter = imageadapter
         recyclerView.layoutManager = LinearLayoutManager(this.context)
 
+
+
+    }
+
+    private fun loadPosts() {
+        postList.clear()
         db.collection("posts").get()
             .addOnSuccessListener {
                 postList.addAll(it.documents)
                 imageadapter.notifyDataSetChanged()
             }
+    }
 
+    override fun onResume() {
+        super.onResume()
+        loadPosts()
     }
 
 }
