@@ -8,6 +8,7 @@ import android.content.Intent
 import android.net.Uri
 
 import android.util.Log
+import android.view.View
 import com.example.photoshare.R
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
@@ -61,6 +62,11 @@ class NewPostActivity : AppCompatActivity() {
                     Picasso.get().load(it).into(imagePreview)
                 }
             }
+
+            // change buttons
+            submitPostButton.text = "Save"
+            deletePostButton.visibility = View.VISIBLE
+
         }
 
         uploadImageButton.setOnClickListener {
@@ -98,6 +104,12 @@ class NewPostActivity : AppCompatActivity() {
                     }
             }
             else {
+                finish()
+            }
+        }
+
+        deletePostButton.setOnClickListener {
+            postDocRef!!.delete().addOnSuccessListener {
                 finish()
             }
         }

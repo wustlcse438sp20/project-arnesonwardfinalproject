@@ -13,6 +13,7 @@ import com.example.photoshare.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_view_collection.*
 import java.util.*
@@ -20,6 +21,7 @@ import kotlin.collections.ArrayList
 
 class ViewCollectionActivity : AppCompatActivity() {
     private val storage = Firebase.storage
+    private val db = Firebase.firestore
 
     private val uriList: ArrayList<Uri> = ArrayList()
     private val pathList: ArrayList<String> = ArrayList()
@@ -29,12 +31,16 @@ class ViewCollectionActivity : AppCompatActivity() {
     private lateinit var privateCollectionId: String
     private lateinit var privateCollectionName: String
 
+    private var collectionRef: StorageReference? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_collection)
 
         privateCollectionId = intent.getStringExtra("privateCollectionId")!!
         privateCollectionName = intent.getStringExtra("privateCollectionName")!!
+
+        collectionRef = storage.getReference("privateCollections/$privateCollectionId")
 
         collectionNameTextView.text = privateCollectionName
 
@@ -49,6 +55,17 @@ class ViewCollectionActivity : AppCompatActivity() {
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1)
         }
 
+        deleteCollectionButton.setOnClickListener {
+            db.collection("privateCollections")
+                .whereEqualTo("id", privateCollectionId)
+                .get()
+                .addOnSuccessListener {
+                    it.documents[0].reference.delete().addOnSuccessListener {
+                        finish()
+                    }
+                }
+        }
+
         loadCollectionImages()
 
     }
@@ -56,8 +73,7 @@ class ViewCollectionActivity : AppCompatActivity() {
     fun loadCollectionImages() {
         uriList.clear()
         pathList.clear()
-        val collectionRef = storage.getReference("privateCollections/$privateCollectionId")
-        collectionRef.listAll()
+        collectionRef!!.listAll()
             .addOnSuccessListener {
                 it.items.forEach {
                     val path = it.path
