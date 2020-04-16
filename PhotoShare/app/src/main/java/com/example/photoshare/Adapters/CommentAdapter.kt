@@ -11,14 +11,18 @@ import kotlin.math.roundToInt
 class CommentViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
     RecyclerView.ViewHolder(inflater.inflate(R.layout.comment_item, parent, false)) {
 
+    private val userTextView: TextView = itemView.findViewById(R.id.commenterUsername)
+    private val contentTextView: TextView = itemView.findViewById(R.id.commentContent)
 
-    fun bind(player: DocumentSnapshot, i: Int) {
 
+    fun bind(comment: DocumentSnapshot, i: Int) {
+        userTextView.text = comment["commenterName"].toString()
+        contentTextView.text = comment["text"].toString()
     }
 
 }
 
-class CommentAdapter(private val list: ArrayList<String>)
+class CommentAdapter(private val list: ArrayList<DocumentSnapshot>)
     : RecyclerView.Adapter<CommentViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
@@ -27,7 +31,7 @@ class CommentAdapter(private val list: ArrayList<String>)
     }
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
-        //val : DocumentSnapshot = list[position]
+        holder.bind(list[position], position)
 
     }
 

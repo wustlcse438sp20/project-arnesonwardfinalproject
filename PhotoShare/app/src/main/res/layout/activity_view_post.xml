@@ -69,30 +69,27 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp">
 
-        <TextView
-            android:id="@+id/like"
-            android:text="Like"
-            android:layout_marginBottom="15dp"
-            android:layout_marginStart="10dp"
-            android:textSize="15sp"
+        <ImageButton
+            android:id="@+id/likeButton"
             android:layout_width="50dp"
-            android:layout_marginEnd="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="start"/>
+            android:layout_height="50dp"
+            android:src="@drawable/baseline_thumb_up_24"
+            style="?android:attr/borderlessButtonStyle"/>
+
+<!--        <TextView-->
+<!--            android:id="@+id/likeButton"-->
+<!--            android:text="Like"-->
+<!--            android:layout_marginBottom="15dp"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:textSize="15sp"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_marginEnd="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="start"/>-->
+
 
         <TextView
-            android:id="@+id/dislike"
-            android:text="Dislike"
-            android:layout_marginBottom="15dp"
-            android:textSize="15sp"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginEnd="20dp"/>
-
-
-        <TextView
-            android:id="@+id/likes"
+            android:id="@+id/likesTextView"
             android:text=" Likes"
             android:layout_marginBottom="6dp"
             android:textSize="12sp"
@@ -102,8 +99,31 @@
             android:layout_gravity="center"
             android:layout_marginEnd="10dp"/>
 
+<!--        <Button-->
+<!--            android:id="@+id/dislikeButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:drawableTop="@drawable/baseline_thumb_up_24"/>-->
+
+        <ImageButton
+            android:id="@+id/dislikeButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/baseline_thumb_down_24"
+            style="?android:attr/borderlessButtonStyle"/>
+
+<!--        <TextView-->
+<!--            android:id="@+id/dislikeButton"-->
+<!--            android:drawableLeft="@drawable/baseline_thumb_up_24"-->
+<!--            android:layout_marginBottom="15dp"-->
+<!--            android:textSize="15sp"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="0dp"-->
+<!--            android:layout_marginEnd="20dp"/>-->
+
         <TextView
-            android:id="@+id/dislikes"
+            android:id="@+id/dislikesTextView"
             android:text=" Dislikes"
             android:layout_gravity="center"
             android:layout_marginBottom="6dp"
@@ -125,17 +145,18 @@
             android:layout_marginEnd="5dp">
 
             <EditText
-                android:id="@+id/comment"
+                android:id="@+id/commentInput"
                 android:hint="Comment"
                 android:layout_marginBottom="0dp"
                 android:textSize="12sp"
-                android:layout_width="75dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_marginEnd="10dp"/>
 
             <Button
-                android:id="@+id/Submit"
+                android:id="@+id/submitCommentButton"
+                android:enabled="false"
                 android:text="Submit"
                 android:layout_marginBottom="15dp"
                 android:textSize="12sp"
@@ -150,7 +171,7 @@
         app:layout_constraintTop_toBottomOf="@+id/commentForm"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/commentRecycler"
+        android:id="@+id/commentRecyclerWrapper"
         android:orientation="vertical"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp">
@@ -170,7 +191,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="0dp"
-            android:id="@+id/recyclerView"
+            android:id="@+id/commentsRecycler"
             android:nestedScrollingEnabled="true"
             app:layout_constrainedHeight="true"
             app:layout_constraintTop_toTopOf="parent"

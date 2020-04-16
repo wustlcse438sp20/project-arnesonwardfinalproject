@@ -49,6 +49,7 @@ class ImageViewHolder(inflater: LayoutInflater, parent: ViewGroup, private val c
             caption.text = imagePost["caption"].toString()
             viewButton.setOnClickListener{
                 val viewIntent = Intent(ctx, ViewPostActivity::class.java)
+                viewIntent.putExtra("postId", imagePost.id)
                 ctx.startActivity(viewIntent)
             }
         }
