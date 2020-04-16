@@ -46,8 +46,8 @@ class ViewCollectionActivity : AppCompatActivity() {
         collectionNameTextView.text = privateCollectionName
 
 
-        recyclerView.adapter = collectionViewAdapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        accountCollectionsRecycler.adapter = collectionViewAdapter
+        accountCollectionsRecycler.layoutManager = LinearLayoutManager(this)
 
         addImageButton.setOnClickListener {
             val intent = Intent()

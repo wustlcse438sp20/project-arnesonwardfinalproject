@@ -41,8 +41,8 @@ class FeedFragment : Fragment() {
 
 
 
-        recyclerView.adapter = imageadapter
-        recyclerView.layoutManager = LinearLayoutManager(this.context)
+        accountCollectionsRecycler.adapter = imageadapter
+        accountCollectionsRecycler.layoutManager = LinearLayoutManager(this.context)
 
 
 

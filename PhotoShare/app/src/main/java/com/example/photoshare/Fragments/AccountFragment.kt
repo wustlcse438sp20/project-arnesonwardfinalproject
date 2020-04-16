@@ -11,22 +11,25 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.photoshare.Adapters.AccountCollectionAdapter
 import com.example.photoshare.Activities.NewCollectionActivity
 import com.example.photoshare.Activities.NewPostActivity
+import com.example.photoshare.Adapters.AccountPostAdapter
 import com.example.photoshare.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_account.*
-import kotlinx.android.synthetic.main.fragment_account.recyclerView
+import kotlinx.android.synthetic.main.fragment_account.accountCollectionsRecycler
 
 
 class AccountFragment : Fragment() {
 
     private val privateCollections: ArrayList<DocumentSnapshot> = ArrayList()
+    private val posts: ArrayList<DocumentSnapshot> = ArrayList()
 
     private val db = Firebase.firestore
     private val auth = FirebaseAuth.getInstance()
     private lateinit var collectionadapter: AccountCollectionAdapter
+    private lateinit var accountPostsAdapter: AccountPostAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,10 +42,14 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        collectionadapter =
-            AccountCollectionAdapter(privateCollections, context!!)
-        recyclerView.adapter = collectionadapter
-        recyclerView.layoutManager = LinearLayoutManager(this.context)
+        collectionadapter = AccountCollectionAdapter(privateCollections, context!!)
+        accountCollectionsRecycler.adapter = collectionadapter
+        accountCollectionsRecycler.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+
+
+        accountPostsAdapter = AccountPostAdapter(posts, context!!)
+        accountPostsRecycler.adapter = accountPostsAdapter
+        accountPostsRecycler.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
 
         newPostButton.setOnClickListener {
             startActivity(Intent(context, NewPostActivity::class.java))
@@ -63,6 +70,11 @@ class AccountFragment : Fragment() {
             .addOnSuccessListener {
                 privateCollections.addAll(it.documents)
                 collectionadapter.notifyDataSetChanged()
+
+
+                // TODO: remove
+                posts.addAll(it.documents)
+                accountPostsAdapter.notifyDataSetChanged()
             }
     }
 

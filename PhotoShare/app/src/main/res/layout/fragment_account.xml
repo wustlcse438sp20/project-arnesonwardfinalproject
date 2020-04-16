@@ -6,32 +6,84 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".Fragments.AccountFragment">
 
-    <Button
-        android:id="@+id/newPostButton"
+    <TextView
+        android:id="@+id/accountInfoTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/newCollectionButton"
-        app:layout_constraintRight_toRightOf="parent"
-        android:text="New Post"/>
+        android:text="E's Account Info"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
-    <Button
-        android:id="@+id/newCollectionButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/collectionsLinearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/newPostButton"
-        app:layout_constraintRight_toRightOf="parent"
-        android:text="New Collection"/>
+        app:layout_constraintTop_toBottomOf="@id/accountInfoTitle"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <TextView
+            android:id="@+id/collectionsHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Collections"/>
+
+        <Button
+            android:id="@+id/newCollectionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New"/>
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_marginTop="50dp"
-        android:id="@+id/recyclerView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/accountCollectionsRecycler"
+        app:layout_constraintTop_toBottomOf="@id/collectionsLinearLayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
 
+    <LinearLayout
+        android:id="@+id/postsLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/accountCollectionsRecycler"
+        app:layout_constraintLeft_toLeftOf="parent">
 
+        <TextView
+            android:id="@+id/postsHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Posts"/>
+
+        <Button
+            android:id="@+id/newPostButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New"/>
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/accountPostsRecycler"
+        app:layout_constraintTop_toBottomOf="@id/postsLinearLayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+
+<!--    <Button-->
+<!--        android:id="@+id/newPostButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        android:text="New Post"/>-->
 </androidx.constraintlayout.widget.ConstraintLayout>
