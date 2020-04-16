@@ -22,11 +22,11 @@ class ViewPostActivity : AppCompatActivity() {
 
 
     private val commentList: ArrayList<DocumentSnapshot> = ArrayList()
-    private val commentAdapter = CommentAdapter(commentList)
 
     private val db = Firebase.firestore
     private val storage = Firebase.storage
     private val auth = FirebaseAuth.getInstance()
+    private val commentAdapter = CommentAdapter(commentList, auth.currentUser!!.uid, this)
 
     private lateinit var postId: String
     private lateinit var postDocRef: DocumentReference
@@ -174,7 +174,7 @@ class ViewPostActivity : AppCompatActivity() {
         dislikesTextView.text = dislikes.toString()
     }
 
-    private fun loadComments() {
+    fun loadComments() {
         commentList.clear()
         db.collection("comments")
             .whereEqualTo("postId", postId)

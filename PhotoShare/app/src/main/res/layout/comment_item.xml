@@ -6,7 +6,6 @@
 
     <TextView
         android:id="@+id/commenterUsername"
-        android:text="EEEE"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
         android:layout_marginEnd="10dp"
@@ -16,16 +15,29 @@
         android:gravity="start"/>
 
     <TextView
-        android:text="name is Ethan got big d, name still Ethan favorite letter is E.
-jdfsfjdfjioerhfhnrepoighiopneghnpofghneriongphirengvopiernginergnrengfjnrepognqerngiqroingfoiqngoirengoinreoingfoqerngonqgoirngoignqeoingrionogqengqngroigniorne;rneronqreoirneioenrqennri;ernognreojnernioernienoenpoeqgfniunreoipnpoineiounprnqeipruipnguipnqpgeinpgrnuienepu"
         android:id="@+id/commentContent"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start"/>
 
+    <Button
+        android:id="@+id/deleteComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginStart="10dp"
+        android:text="Delete"
+        android:visibility="invisible"
+        android:layout_marginTop="5dp" />
 
+    <TextView
+        android:id="@+id/margin"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:gravity="start"/>
 
 </LinearLayout>
