@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.photoshare.Activities.ViewCollectionActivity
 import com.example.photoshare.R
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.squareup.picasso.Picasso
 
 
@@ -18,12 +20,27 @@ class AccountCollectionViewHolder(inflater: LayoutInflater, parent: ViewGroup, p
     RecyclerView.ViewHolder(inflater.inflate(R.layout.collection_item, parent, false)) {
     private val Title: TextView = itemView.findViewById(R.id.collectionTitle)
     private val img: ImageView = itemView.findViewById(R.id.collectionImagePreview)
+    private val storage = Firebase.storage
 //    private val wrapper: ViewGroup = itemView.findViewById(R.id.collectionItemWrapper)
 
 
     fun bind(collection: DocumentSnapshot, i: Int) {
         Title.text = collection["name"].toString()
-        Picasso.get().load("https://cse.wustl.edu/faculty/PublishingImages/Doug%20Shook.jpg?RenditionID=4").into(img)
+
+        val colRef = storage.getReference("privateCollections/" + collection["id"])
+        colRef.listAll()
+            .addOnSuccessListener {
+                if (it.items.isNotEmpty()) {
+                    it.items[0].downloadUrl.addOnSuccessListener {
+                        Picasso.get().load(it).into(img)
+                    }
+                }
+                else {
+                    // Load default image if collection is empty
+                    Picasso.get().load("https://cse.wustl.edu/faculty/PublishingImages/Doug%20Shook.jpg?RenditionID=4").into(img)
+                }
+            }
+
         itemView.setOnClickListener {
             val intent = Intent(ctx, ViewCollectionActivity::class.java)
             intent.putExtra("privateCollectionId", collection["id"].toString())

@@ -1,3 +1,14 @@
+NOTES:
+firebase storage structure:
+  privateCollections/<collectionId>/<random uuid>.jpg
+  <userId>/<uuid of post photo>.jpg
+
+TODO:
+change default picture of empty collection
+
+
+
+
 App Name:
 Team Members:
 
