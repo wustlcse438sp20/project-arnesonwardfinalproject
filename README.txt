@@ -1,11 +1,12 @@
 NOTES:
 firebase storage structure:
   privateCollections/<collectionId>/<random uuid>.jpg
-  <userId>/<uuid of post photo>.jpg
+  <userId>/<uuid of post photo>.jpg # in firestore, this is "imageName" (should be refactored to be like collections)
 
 TODO:
 change default picture of empty collection
-
+keep user logged in like blackjack
+add login button to bottom of tabview
 
 
 

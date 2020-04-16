@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.photoshare.Activities.NewPostActivity
 import com.example.photoshare.Activities.ViewCollectionActivity
 import com.example.photoshare.R
 import com.google.firebase.firestore.DocumentSnapshot
@@ -27,10 +28,9 @@ class AccountPostViewHolder(inflater: LayoutInflater, parent: ViewGroup, private
         imageRef.downloadUrl.addOnSuccessListener {
             Picasso.get().load(it).into(img)
             img.setOnClickListener {
-//                val intent = Intent(ctx, ViewCollectionActivity::class.java)
-//                intent.putExtra("privateCollectionId", collection["id"].toString())
-//                intent.putExtra("privateCollectionName", collection["name"].toString())
-//                ctx.startActivity(intent)
+                val intent = Intent(ctx, NewPostActivity::class.java)
+                intent.putExtra("editPostRefPath", post.reference.path)
+                ctx.startActivity(intent)
             }
         }
     }

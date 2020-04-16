@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.UploadTask
@@ -34,9 +35,33 @@ class NewPostActivity : AppCompatActivity() {
 
     private var imageFile: Uri? = null
 
+    private var editingExistingPost = false
+    private var imageChanged = false
+    private var postDocRef: DocumentReference? = null
+    private var postDocSnapshot: DocumentSnapshot? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_post)
+
+        val editPostPath = intent.getStringExtra("editPostRefPath")
+
+        if (editPostPath != null) {
+            editingExistingPost = true
+            // get image file
+            // get post document
+            // populate inputs (caption and imageview)
+
+            postDocRef = db.document(editPostPath)
+            postDocRef!!.get().addOnSuccessListener {
+                postDocSnapshot = it
+                captionInput.setText(it["caption"].toString())
+                storage.getReference(it["imageName"].toString()).downloadUrl.addOnSuccessListener {
+                    imageFile = it
+                    Picasso.get().load(it).into(imagePreview)
+                }
+            }
+        }
 
         uploadImageButton.setOnClickListener {
             val intent = Intent()
@@ -51,22 +76,30 @@ class NewPostActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val user = auth.currentUser!!
-            val imageName = user.uid + "/" + UUID.randomUUID() + ".jpg"
 
-            addPostToFirestore(user, imageName)
-                .addOnSuccessListener {
-                    uploadImageToStorage(imageName)
-                        .addOnSuccessListener {
-                            finish()
-                        }
-                        .addOnFailureListener {
-                            Log.i("EEE", it.localizedMessage)
-                        }
-                }
-                .addOnFailureListener {
-                    Log.i("EEE", it.localizedMessage)
-                }
+            var imageName = ""
+            if (editingExistingPost) {
+                postDocRef!!.update("caption", captionInput.text.toString())
+                imageName = postDocSnapshot!!["imageName"].toString()
+            }
+            else {
+                val user = auth.currentUser!!
+                imageName = user.uid + "/" + UUID.randomUUID() + ".jpg"
+                addPostToFirestore(user, imageName)
+            }
+
+            if (imageChanged) {
+                uploadImageToStorage(imageName)
+                    .addOnSuccessListener {
+                        finish()
+                    }
+                    .addOnFailureListener {
+                        Log.i("EEE", it.localizedMessage)
+                    }
+            }
+            else {
+                finish()
+            }
         }
 
     }
@@ -88,28 +121,7 @@ class NewPostActivity : AppCompatActivity() {
         val imageRef = storageRef.child(imageName)
         return imageRef.putFile(imageFile!!)
     }
-
-    private fun uploadPost() {
-//        val user = auth.currentUser!!
-//
-//        val imageName = user.uid + "/" + UUID.randomUUID() + ".jpg"
-//
-//        val ownerObj = hashMapOf<String, String>(
-//            "id" to user.uid,
-//            "username" to user.email!! // TODO: change to username
-//        )
-//
-//        db.collection("posts").add(hashMapOf(
-//            "owner" to ownerObj,
-//            "caption" to captionInput.text.toString(),
-//            "imageName" to imageName
-//        ))
-//
-//        // Create a reference to "mountains.jpg"
-//        val imageRef = storageRef.child(imageName)
-//
-//        imageRef.putFile(imageFile!!)
-    }
+    
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -118,6 +130,7 @@ class NewPostActivity : AppCompatActivity() {
         }
 
         if (requestCode == PICK_IMAGE) {
+            imageChanged = true
             imageFile = data!!.data!!
             Picasso.get().load(imageFile).into(imagePreview)
 //            imageRef.putFile(data!!.data!!)
