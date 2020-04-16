@@ -11,9 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".Activities.ViewPostActivity"></activity>
-
+        <activity android:name=".Activities.FriendsActivity"></activity>
+        <activity android:name=".Activities.ViewPostActivity" />
         <activity android:name=".Activities.ViewCollectionActivity" />
         <activity android:name=".Activities.NewCollectionActivity" />
         <activity android:name=".Activities.NewPostActivity" />

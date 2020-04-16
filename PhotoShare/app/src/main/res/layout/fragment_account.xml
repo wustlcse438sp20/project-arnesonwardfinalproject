@@ -79,11 +79,12 @@ tools:context=".Fragments.AccountFragment">
         app:layout_constraintRight_toRightOf="parent"/>
 
 
-<!--    <Button-->
-<!--        android:id="@+id/newPostButton"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        android:text="New Post"/>-->
+    <Button
+        android:id="@+id/friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="Friends"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

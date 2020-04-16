@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.photoshare.Activities.FriendsActivity
 import com.example.photoshare.Adapters.AccountCollectionAdapter
 import com.example.photoshare.Activities.NewCollectionActivity
 import com.example.photoshare.Activities.NewPostActivity
@@ -58,6 +59,9 @@ class AccountFragment : Fragment() {
         newCollectionButton.setOnClickListener {
             startActivity(Intent(context, NewCollectionActivity::class.java))
         }
+        friends.setOnClickListener{
+            startActivity(Intent(context, FriendsActivity::class.java))
+        }
 
 //        loadPrivateCollections()
 
@@ -93,6 +97,7 @@ class AccountFragment : Fragment() {
         loadPrivateCollections()
         loadPosts()
     }
+
 
 
 
