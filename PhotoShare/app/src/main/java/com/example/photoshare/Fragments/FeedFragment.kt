@@ -24,7 +24,7 @@ class FeedFragment : Fragment() {
     private val db = Firebase.firestore
     private val auth = FirebaseAuth.getInstance()
 
-    private val imageadapter = ImageAdapter(postList)
+    private lateinit var imageadapter: ImageAdapter
 
     // TODO: pull down to refresh
 
@@ -38,7 +38,7 @@ class FeedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        imageadapter = ImageAdapter(postList, this.context!!)
 
 
         accountCollectionsRecycler.adapter = imageadapter
