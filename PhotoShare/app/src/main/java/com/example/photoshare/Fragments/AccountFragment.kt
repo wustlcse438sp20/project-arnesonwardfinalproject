@@ -44,6 +44,8 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        accountInfoTitle.text = "Profile Info for ${auth.currentUser!!.displayName}"
+
         collectionadapter = AccountCollectionAdapter(privateCollections, context!!)
         accountCollectionsRecycler.adapter = collectionadapter
         accountCollectionsRecycler.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)

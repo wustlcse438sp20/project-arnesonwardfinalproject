@@ -79,7 +79,7 @@ class ViewPostActivity : AppCompatActivity() {
                 "postId" to postId,
                 "text" to commentInput.text.toString(),
                 "commenterId" to auth.currentUser!!.uid,
-                "commenterName" to auth.currentUser!!.email // TODO: change to displayName
+                "commenterName" to auth.currentUser!!.displayName // TODO: change to displayName
             )).addOnSuccessListener {
                 loadComments()
             }

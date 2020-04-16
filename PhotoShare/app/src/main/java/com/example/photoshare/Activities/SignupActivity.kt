@@ -7,6 +7,7 @@ import android.util.Log
 import com.example.photoshare.R
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.android.synthetic.main.activity_signup.*
 
 class SignupActivity : AppCompatActivity() {
@@ -26,8 +27,8 @@ class SignupActivity : AppCompatActivity() {
 
         signupButton.setOnClickListener {
             val v = it
-            if (emailInput.text.isEmpty() || passwordInput.text.isEmpty()) {
-                Snackbar.make(it, "Please enter an email and password.", Snackbar.LENGTH_SHORT).show()
+            if (emailInput.text.isEmpty() || passwordInput.text.isEmpty() || displayNameInput.text.isEmpty()) {
+                Snackbar.make(it, "Please enter an email, username and password.", Snackbar.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             else if (confirmPasswordInput.text.toString() != passwordInput.text.toString()) {
@@ -38,7 +39,11 @@ class SignupActivity : AppCompatActivity() {
             auth.createUserWithEmailAndPassword(emailInput.text.toString(), passwordInput.text.toString())
                 .addOnSuccessListener {
                     Log.i("EEE", "signup successful")
-                    startActivity(Intent(this, FeedActivity::class.java))
+                    val builder = UserProfileChangeRequest.Builder()
+                    builder.setDisplayName(displayNameInput.text.toString())
+                    auth.currentUser!!.updateProfile(builder.build()).addOnSuccessListener {
+                        startActivity(Intent(this, FeedActivity::class.java))
+                    }
                 }
                 .addOnFailureListener {
                     Snackbar.make(v, it.localizedMessage, Snackbar.LENGTH_SHORT).show()
