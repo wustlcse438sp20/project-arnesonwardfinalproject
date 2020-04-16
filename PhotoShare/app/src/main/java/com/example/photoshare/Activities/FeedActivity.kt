@@ -1,11 +1,13 @@
 package com.example.photoshare.Activities
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.tabs.TabLayout
 import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
 import com.example.photoshare.R
 import com.example.photoshare.ui.main.SectionsPagerAdapter
+import kotlinx.android.synthetic.main.activity_feed.*
 
 class FeedActivity : AppCompatActivity() {
 
@@ -19,7 +21,10 @@ class FeedActivity : AppCompatActivity() {
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
-
+        logout.setOnClickListener{
+            //startActivity(Intent(this@FeedActivity, LoginActivity::class.java))
+            finish()
+        }
 //        val fab: FloatingActionButton = findViewById(R.id.fab)
 //
 //        fab.setOnClickListener { view ->
