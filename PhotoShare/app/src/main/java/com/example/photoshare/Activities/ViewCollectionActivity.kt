@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.photoshare.Adapters.CollectionViewAdapter
 import com.example.photoshare.R
@@ -18,20 +19,12 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ViewCollectionActivity : AppCompatActivity() {
-
-//    companion object{
-//        val collectionItemList: ArrayList<String> = ArrayList()
-//        val url1 = "https://i.kym-cdn.com/entries/icons/mobile/000/026/008/Screen_Shot_2018-04-25_at_12.24.22_PM.jpg"
-//        val url2 = "https://i.kym-cdn.com/entries/icons/mobile/000/026/008/Screen_Shot_2018-04-25_at_12.24.22_PM.jpg"
-//    }
-
-    private val collectionItemList: ArrayList<Uri> = ArrayList()
-    private val collectionViewAdapter =
-        CollectionViewAdapter(collectionItemList)
-
     private val storage = Firebase.storage
-    private val db = Firebase.firestore
-    private val auth = FirebaseAuth.getInstance()
+
+    private val uriList: ArrayList<Uri> = ArrayList()
+    private val pathList: ArrayList<String> = ArrayList()
+    private val collectionViewAdapter = CollectionViewAdapter(uriList, pathList, storage, this)
+
 
     private lateinit var privateCollectionId: String
     private lateinit var privateCollectionName: String
@@ -47,7 +40,7 @@ class ViewCollectionActivity : AppCompatActivity() {
 
 
         accountCollectionsRecycler.adapter = collectionViewAdapter
-        accountCollectionsRecycler.layoutManager = LinearLayoutManager(this)
+        accountCollectionsRecycler.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)//LinearLayoutManager(this)
 
         addImageButton.setOnClickListener {
             val intent = Intent()
@@ -60,19 +53,27 @@ class ViewCollectionActivity : AppCompatActivity() {
 
     }
 
-    private fun loadCollectionImages() {
-        collectionItemList.clear()
+    fun loadCollectionImages() {
+        uriList.clear()
+        pathList.clear()
         val collectionRef = storage.getReference("privateCollections/$privateCollectionId")
         collectionRef.listAll()
             .addOnSuccessListener {
                 it.items.forEach {
+                    val path = it.path
+//                    pathList.add(path)
                     it.downloadUrl.addOnSuccessListener {
-                        collectionItemList.add(it)
+                        uriList.add(it)
+                        pathList.add(path)
                         collectionViewAdapter.notifyDataSetChanged()
                     }
 //                    collectionItemList.add(it.)
                 }
+//                collectionViewAdapter.notifyDataSetChanged()
                 Log.i("EEE", it.toString())
+            }
+            .addOnFailureListener {
+//                collectionViewAdapter.notifyDataSetChanged()
             }
     }
 
