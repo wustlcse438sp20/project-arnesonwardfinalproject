@@ -40,7 +40,6 @@ class ImageViewHolder(inflater: LayoutInflater, parent: ViewGroup, private val c
 
     fun bind(imagePost: DocumentSnapshot, i: Int) {
         val owner = (imagePost["owner"]) as Map<String, String>
-        // TODO: refactor post storage references to be /posts/<ownerId>/<uuid>
         val imageRef = storage.getReference(imagePost["imageName"].toString())
         imageRef.downloadUrl.addOnSuccessListener {
             Picasso.get().load(it).into(imgView)

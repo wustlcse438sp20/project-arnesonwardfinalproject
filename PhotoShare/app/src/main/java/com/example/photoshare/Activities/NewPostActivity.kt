@@ -119,7 +119,7 @@ class NewPostActivity : AppCompatActivity() {
     private fun addPostToFirestore(user: FirebaseUser, imageName: String): Task<DocumentReference> {
         val ownerObj = hashMapOf<String, String>(
             "id" to user.uid,
-            "username" to user.displayName!! // TODO: change to username
+            "username" to user.displayName!!
         )
 
         return db.collection("posts").add(hashMapOf(

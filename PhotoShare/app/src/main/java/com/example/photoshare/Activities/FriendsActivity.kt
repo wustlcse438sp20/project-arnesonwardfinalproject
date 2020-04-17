@@ -47,8 +47,6 @@ class FriendsActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // TODO: make sure they haven't already requested
-
             db.collection("users")
                 .whereEqualTo("displayName", friendName)
                 .get()

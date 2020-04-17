@@ -26,8 +26,6 @@ class FeedFragment : Fragment() {
 
     private lateinit var imageadapter: ImageAdapter
 
-    // TODO: pull down to refresh
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
