@@ -6,6 +6,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <!-- tools:context=".fragment.FeedFragment" -->
 
+
+    <RadioGroup
+        android:id="@+id/sortMethodRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+        <RadioButton
+            android:id="@+id/mostLikedRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Most Liked"/>
+        <RadioButton
+            android:id="@+id/mostDislikedRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Most Disliked"/>
+
+    </RadioGroup>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="450dp"

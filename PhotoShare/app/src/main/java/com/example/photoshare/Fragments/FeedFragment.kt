@@ -44,7 +44,11 @@ class FeedFragment : Fragment() {
         accountCollectionsRecycler.adapter = imageadapter
         accountCollectionsRecycler.layoutManager = LinearLayoutManager(this.context)
 
+        sortMethodRadioGroup.check(R.id.mostLikedRadioButton)
 
+        sortMethodRadioGroup.setOnCheckedChangeListener { group, checkedId ->
+            sortPosts()
+        }
 
     }
 
@@ -66,10 +70,25 @@ class FeedFragment : Fragment() {
                             postList.add(it)
                         }
                     }
+                    sortPosts()
                     imageadapter.notifyDataSetChanged()
                 }
         }
 
+    }
+
+    private fun sortPosts() {
+        var method = "likes"
+        if (mostDislikedRadioButton.isChecked)
+            method = "dislikes"
+
+        postList.sortBy {
+            it[method]?.toString()?.toInt() ?: 0
+        }
+
+        postList.reverse()
+
+        imageadapter.notifyDataSetChanged()
     }
 
     override fun onResume() {

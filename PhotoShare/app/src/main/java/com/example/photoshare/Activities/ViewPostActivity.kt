@@ -141,8 +141,15 @@ class ViewPostActivity : AppCompatActivity() {
                     }
                 }
                 updateVotesView()
-
+                setPostVoteCounts()
             }
+    }
+
+    private fun setPostVoteCounts() {
+        postDocRef.update(hashMapOf(
+            "dislikes" to dislikes,
+            "likes" to likes
+        ) as Map<String, Any>)
     }
 
     private fun castVote(up: Boolean, down: Boolean): Task<Any> {
