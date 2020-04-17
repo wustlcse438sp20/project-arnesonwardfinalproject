@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.photoshare.Adapters.CommentAdapter
 import com.example.photoshare.R
@@ -73,7 +74,7 @@ class ViewPostActivity : AppCompatActivity() {
         commentInput.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int,
                                            count: Int, after: Int) {
-                submitCommentButton.isEnabled = after != 0
+                submitCommentButton.isEnabled = !(after == 0 && start == 0 && count == 1 && commentInput.text.length == 1)
             }
             override fun afterTextChanged(s: Editable) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}

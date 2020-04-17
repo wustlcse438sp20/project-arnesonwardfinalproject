@@ -37,7 +37,7 @@ class AccountCollectionViewHolder(inflater: LayoutInflater, parent: ViewGroup, p
                 }
                 else {
                     // Load default image if collection is empty
-                    Picasso.get().load("https://cse.wustl.edu/faculty/PublishingImages/Doug%20Shook.jpg?RenditionID=4").into(img)
+                    Picasso.get().load("https://media.istockphoto.com/vectors/instant-pictures-vector-id527031569?k=6&m=527031569&s=612x612&w=0&h=zccUCWznzNfhwTNk1spGtFD3rH2zAYXNFChibbkM_uw=").into(img)
                 }
             }
 
