@@ -8,11 +8,14 @@ import com.example.photoshare.R
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_signup.*
 
 class SignupActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,18 +39,41 @@ class SignupActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            auth.createUserWithEmailAndPassword(emailInput.text.toString(), passwordInput.text.toString())
+            val displayName = displayNameInput.text.toString()
+
+            // make sure username isn't taken
+            db.collection("users")
+                .whereEqualTo("displayName", displayName)
+                .get()
                 .addOnSuccessListener {
-                    Log.i("EEE", "signup successful")
-                    val builder = UserProfileChangeRequest.Builder()
-                    builder.setDisplayName(displayNameInput.text.toString())
-                    auth.currentUser!!.updateProfile(builder.build()).addOnSuccessListener {
-                        startActivity(Intent(this, FeedActivity::class.java))
+                    if (it.documents.isNotEmpty()) {
+                        Snackbar.make(v, "Username taken", Snackbar.LENGTH_LONG).show()
+                        return@addOnSuccessListener
                     }
+
+                    auth.createUserWithEmailAndPassword(emailInput.text.toString(), passwordInput.text.toString())
+                        .addOnSuccessListener {
+                            Log.i("EEE", "signup successful")
+                            val builder = UserProfileChangeRequest.Builder()
+                            builder.setDisplayName(displayName)
+                            auth.currentUser!!.updateProfile(builder.build())
+                                .addOnSuccessListener {
+                                    db.document("users/" + auth.currentUser!!.uid).set(hashMapOf(
+                                        "id" to auth.currentUser!!.uid,
+                                        "displayName" to displayName,
+                                        "friends" to ArrayList<String>()
+                                    )).addOnSuccessListener {
+                                        startActivity(Intent(this, FeedActivity::class.java))
+                                    }
+                                }
+                        }
+                        .addOnFailureListener {
+                            Snackbar.make(v, it.localizedMessage, Snackbar.LENGTH_SHORT).show()
+                        }
+
                 }
-                .addOnFailureListener {
-                    Snackbar.make(v, it.localizedMessage, Snackbar.LENGTH_SHORT).show()
-                }
+
+
 
         }
     }
