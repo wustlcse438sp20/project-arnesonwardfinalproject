@@ -11,6 +11,7 @@ tools:context=".Fragments.AccountFragment">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="E's Account Info"
+        android:textSize="25sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
@@ -26,7 +27,8 @@ tools:context=".Fragments.AccountFragment">
             android:id="@+id/collectionsHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Collections"/>
+            android:text="Collections"
+            android:textSize="20sp"/>
 
         <Button
             android:id="@+id/newCollectionButton"
@@ -58,7 +60,8 @@ tools:context=".Fragments.AccountFragment">
             android:id="@+id/postsHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Posts"/>
+            android:text="Posts"
+            android:textSize="20sp"/>
 
         <Button
             android:id="@+id/newPostButton"
