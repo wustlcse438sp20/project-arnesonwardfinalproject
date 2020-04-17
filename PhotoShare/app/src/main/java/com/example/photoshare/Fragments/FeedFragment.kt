@@ -50,11 +50,26 @@ class FeedFragment : Fragment() {
 
     private fun loadPosts() {
         postList.clear()
-        db.collection("posts").get()
-            .addOnSuccessListener {
-                postList.addAll(it.documents)
-                imageadapter.notifyDataSetChanged()
-            }
+        db.document("users/" + auth.currentUser!!.uid).get().addOnSuccessListener {
+            val myFriends = it["friends"] as ArrayList<String>
+
+            db.collection("posts").get()
+                .addOnSuccessListener {
+                    it.documents.forEach {
+                        if (it["private"] != null && it["private"].toString().toBoolean()) {
+                            val postOwner = it["owner.username"].toString()
+                            if (myFriends.indexOf(postOwner) != -1 || postOwner == auth.currentUser!!.displayName) {
+                                postList.add(it)
+                            }
+                        }
+                        else {
+                            postList.add(it)
+                        }
+                    }
+                    imageadapter.notifyDataSetChanged()
+                }
+        }
+
     }
 
     override fun onResume() {

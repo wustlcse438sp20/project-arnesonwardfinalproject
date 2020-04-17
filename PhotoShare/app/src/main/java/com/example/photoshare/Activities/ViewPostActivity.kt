@@ -52,8 +52,13 @@ class ViewPostActivity : AppCompatActivity() {
 
         postDocRef = db.document("posts/$postId")
         postDocRef.get().addOnSuccessListener {
+            var captionText = it["caption"].toString()
+            if (it["private"] != null && it["private"].toString().toBoolean()) {
+                captionText += "\n(PRIVATE)"
+            }
+
             username.text = it["owner.username"].toString()
-            caption.text = it["caption"].toString()
+            caption.text = captionText
             storage.getReference(it["imageName"].toString()).downloadUrl.addOnSuccessListener {
                 Picasso.get().load(it).into(imagePost)
             }

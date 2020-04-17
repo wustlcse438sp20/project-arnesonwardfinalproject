@@ -125,7 +125,8 @@ class NewPostActivity : AppCompatActivity() {
         return db.collection("posts").add(hashMapOf(
             "owner" to ownerObj,
             "caption" to captionInput.text.toString(),
-            "imageName" to imageName
+            "imageName" to imageName,
+            "private" to makePrivateCheckBox.isChecked
         ))
     }
 
