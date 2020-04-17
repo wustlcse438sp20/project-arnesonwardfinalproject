@@ -32,7 +32,7 @@ class CommentViewHolder(inflater: LayoutInflater, parent: ViewGroup, private val
             deleteBtn.visibility = View.VISIBLE
         }
         else {
-            deleteBtn.visibility = View.INVISIBLE
+            deleteBtn.visibility = View.GONE
         }
         //Log.i("EEE", UID2)
         //Log.i("EEE", comment["commenterID"].toString())

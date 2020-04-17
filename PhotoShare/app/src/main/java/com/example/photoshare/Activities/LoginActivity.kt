@@ -34,6 +34,8 @@ class LoginActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(emailInput.text.toString(), passwordInput.text.toString())
                 .addOnSuccessListener {
                     Log.i("EEE", "login success")
+                    emailInput.text.clear()
+                    passwordInput.text.clear()
                     startActivity(Intent(this, FeedActivity::class.java))
                 }
                 .addOnFailureListener {

@@ -57,6 +57,7 @@ class NewPostActivity : AppCompatActivity() {
             postDocRef!!.get().addOnSuccessListener {
                 postDocSnapshot = it
                 captionInput.setText(it["caption"].toString())
+                makePrivateCheckBox.isChecked = it["private"] != null && it["private"].toString().toBoolean()
                 storage.getReference(it["imageName"].toString()).downloadUrl.addOnSuccessListener {
                     imageFile = it
                     Picasso.get().load(it).into(imagePreview)
@@ -77,15 +78,25 @@ class NewPostActivity : AppCompatActivity() {
         }
 
         submitPostButton.setOnClickListener {
+
+
+
             if (captionInput.text.isEmpty() || imageFile == null) {
                 Snackbar.make(it, "Please choose and image and caption", Snackbar.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
+            submitPostButton.isEnabled = false
+            deletePostButton.isEnabled = false
+
 
             var imageName = ""
             if (editingExistingPost) {
-                postDocRef!!.update("caption", captionInput.text.toString())
+//                postDocRef!!.update("caption", captionInput.text.toString())
+                postDocRef!!.update(hashMapOf(
+                    "caption" to captionInput.text.toString(),
+                    "private" to makePrivateCheckBox.isChecked
+                ))
                 imageName = postDocSnapshot!!["imageName"].toString()
             }
             else {

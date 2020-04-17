@@ -63,6 +63,10 @@ class SignupActivity : AppCompatActivity() {
                                         "displayName" to displayName,
                                         "friends" to ArrayList<String>()
                                     )).addOnSuccessListener {
+                                        emailInput.text.clear()
+                                        passwordInput.text.clear()
+                                        confirmPasswordInput.text.clear()
+                                        displayNameInput.text.clear()
                                         startActivity(Intent(this, FeedActivity::class.java))
                                     }
                                 }
